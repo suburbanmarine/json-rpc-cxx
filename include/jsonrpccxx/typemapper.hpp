@@ -4,6 +4,7 @@
 #include "nlohmann/json.hpp"
 #include <functional>
 #include <limits>
+#include <tuple>
 #include <utility>
 #include <vector>
 
@@ -17,6 +18,10 @@ namespace jsonrpccxx {
 
   template <typename T>
   constexpr json::value_t GetType(type<std::vector<T>>) {
+    return json::value_t::array;
+  }
+  template <typename... T>
+  constexpr json::value_t GetType(type<std::tuple<T...>>) {
     return json::value_t::array;
   }
   template <typename T>
